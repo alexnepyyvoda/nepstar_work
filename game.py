@@ -1,22 +1,30 @@
-import numpy as np
+import random
 
-def random_predict(number:int=1) -> int:
-    """Рандомно угадываем число
-
-    Args:
-        number (int, optional): Загаданное число. Defaults to 1.
-
-    Returns:
-        int: Число попыток
-    """
-
-    count = 0
+# Функция для угадывания числа
+def guess_number():
+    # Загадываем случайное число
+    secret_number = random.randint(1, 100)
+    
+    # Инициализируем начальные значения диапазона
+    low = 1
+    high = 100
+    attempts = 0
 
     while True:
-        count += 1
-        predict_number = np.random.randint(1, 101) # предполагаемое число
-        if number == predict_number:
-            break # выход из цикла, если угадали
-    return(count)
+        # Предполагаем, что число находится посередине диапазона
+        guess = (low + high) // 2
+        attempts += 1
+        
+        # Проверяем, угадали ли мы число
+        if guess == secret_number:
+            print(f"Компьютер угадал число {secret_number} за {attempts} попыток.")
+            break
+        elif guess < secret_number:
+            print(f"Компьютер думает, что загаданное число больше {guess}.")
+            low = guess + 1
+        else:
+            print(f"Компьютер думает, что загаданное число меньше {guess}.")
+            high = guess - 1
 
-print(f'Количество попыток: {random_predict()}')
+# Запускаем игру
+guess_number()
